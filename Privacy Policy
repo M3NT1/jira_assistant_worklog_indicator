@@ -1,0 +1,40 @@
+Privacy Policy for JIRA Assistant Worklog Indicator
+
+Last updated: [Current Date]
+
+1. Data Collection and Usage
+This extension collects and stores the following data locally in your browser:
+- User preferences (work hour settings)
+- Color threshold values
+- Language preferences
+- User names (visible from JIRA Assistant interface, but not stored separately)
+
+2. Data Storage
+All data is stored locally in your browser using Chrome's storage API. No data is transmitted to external servers or third parties.
+
+3. Data Access
+- The extension only accesses data on the JIRA Assistant web interface (https://app.jiraassistant.com)
+- User names are only read from the webpage to apply color indicators
+- All settings are stored locally and can be exported or deleted by the user at any time
+
+4. Data Sharing
+We do not:
+- Collect or store personal data on external servers
+- Share any data with third parties
+- Use data for any purpose other than the extension's core functionality
+
+5. User Control
+Users can:
+- Export their settings to a local JSON file
+- Import settings from a previously exported file
+- Clear all stored data by removing the extension
+- Modify their settings at any time through the extension interface
+
+6. Updates to Privacy Policy
+Users will be notified of any changes to this privacy policy through the extension's update notes in the Chrome Web Store.
+
+7. Contact
+For privacy concerns or questions, please contact us through the Chrome Web Store support channel.
+
+8. Consent
+By installing and using this extension, you consent to the data handling practices described in this privacy policy.
