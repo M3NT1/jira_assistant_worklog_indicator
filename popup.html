@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>JIRA Assistant Settings</title>
+  <style>
+    body {
+      width: 300px;
+      padding: 10px;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      margin: 5px;
+      padding: 5px 10px;
+      background: #28a745;
+      border: 1px solid #28a745;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .status {
+      margin-top: 10px;
+      padding: 5px;
+      border-radius: 3px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+  </style>
+</head>
+<body>
+  <h2 id="settingsTitle">Settings</h2>
+  <button id="exportBtn">Export</button>
+  <button id="importBtn">Import</button>
+  <input type="file" id="importFile" style="display: none;" accept="application/json">
+  <div id="status" class="status" style="display: none;"></div>
+  <script src="popup.js"></script>
+</body>
+</html>
