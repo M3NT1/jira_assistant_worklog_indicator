@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "JIRA Assistant Worklog Indicator",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Színezi a log indicatort és a total mezőt egyéni beállításokkal és munkarendekkel",
   "permissions": [
     "storage"
