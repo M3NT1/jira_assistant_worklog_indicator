@@ -354,16 +354,24 @@
         });
     }
 
-    // Function to color log indicator
-    function colorLogIndicator(cell, name) {
-        const logValue = parseFloat(cell.textContent) || 0;
-        const indicator = cell.querySelector('.log-indicator .prog-bar');
-        const { workHours } = getPersonSettings(name);
-        
-        if (indicator) {
-            const percentage = (logValue / workHours) * 100;
-            indicator.style.backgroundColor = getColorForPercentage(percentage, name);
-        }
+    // Function to count work days
+    function countWorkDays(row) {
+        const cells = row.querySelectorAll('.day-wl-block');
+        let workDays = 0;
+        let holidays = 0;
+
+        cells.forEach(cell => {
+            if (cell.classList.contains('col-holiday')) {
+                holidays++;
+            } else {
+                workDays++;
+            }
+        });
+
+        return {
+            workDays: workDays,
+            holidays: holidays
+        };
     }
 
     // Function to color total field
@@ -373,11 +381,51 @@
 
         const totalHours = parseFloat(totalCell.textContent) || 0;
         const { workHours } = getPersonSettings(name);
-        const workDays = countWorkDays(row);
-        const expectedTotalHours = workHours * workDays;
-        
-        const percentage = (totalHours / expectedTotalHours) * 100;
-        totalCell.style.backgroundColor = getColorForPercentage(percentage, name);
+        const { workDays, holidays } = countWorkDays(row);
+
+        // Számoljuk ki az elvárt munkaórákat
+        const expectedTotalHours = workDays * workHours;
+
+        // Gyűjtsük ki a holiday napokon logolt órákat
+        let holidayHours = 0;
+        const holidayCells = row.querySelectorAll('.col-holiday.day-wl-block');
+        holidayCells.forEach(cell => {
+            const value = parseFloat(cell.textContent) || 0;
+            holidayHours += value;
+        });
+
+        // A teljes logolt órák (beleértve a holiday-n logoltakat is)
+        const totalLoggedHours = totalHours;
+
+        // Számítsuk ki a százalékot az elvárt munkaórákhoz képest
+        const percentage = ((totalLoggedHours) / (expectedTotalHours)) * 100;
+
+        console.log(`${name} - Munkanapok: ${workDays}, Ünnepnapok: ${holidays}, ` +
+                    `Elvárt órák: ${expectedTotalHours}, Logolt órák: ${totalLoggedHours}, ` +
+                    `Holiday órák: ${holidayHours}, Százalék: ${percentage}%`);
+
+        // Színezzük a total cellát a százalék alapján
+        const { greenThreshold, yellowThreshold } = getPersonSettings(name);
+
+        if (percentage >= greenThreshold) {
+            totalCell.style.backgroundColor = 'green';
+        } else if (percentage >= yellowThreshold) {
+            totalCell.style.backgroundColor = 'yellow';
+        } else {
+            totalCell.style.backgroundColor = 'red';
+        }
+    }
+
+    // Function to color log indicator
+    function colorLogIndicator(cell, name) {
+        const logValue = parseFloat(cell.textContent) || 0;
+        const indicator = cell.querySelector('.log-indicator .prog-bar');
+        const { workHours } = getPersonSettings(name);
+
+        if (indicator) {
+            const percentage = (logValue / workHours) * 100;
+            indicator.style.backgroundColor = getColorForPercentage(percentage, name);
+        }
     }
 
     // Function to get color for percentage
@@ -403,18 +451,6 @@
             greenThreshold: settings.persons[name].greenThreshold ?? settings.defaultGreenThreshold,
             yellowThreshold: settings.persons[name].yellowThreshold ?? settings.defaultYellowThreshold
         };
-    }
-
-    // Function to count work days
-    function countWorkDays(row) {
-        const cells = row.querySelectorAll('.day-wl-block');
-        let workDays = 0;
-        cells.forEach(cell => {
-            if (!cell.classList.contains('col-holiday') && parseFloat(cell.textContent) > 0) {
-                workDays++;
-            }
-        });
-        return workDays;
     }
 
     // Function to export settings
