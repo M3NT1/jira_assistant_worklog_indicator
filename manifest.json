@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "JIRA Assistant Worklog Indicator",
-  "version": "1.1",
-  "description": "Színezi a log indicatort és a total mezőt egyéni beállításokkal és munkarendekkel",
+  "version": "1.2",
+  "description": "The log indicator and the total field are colored with custom settings and work schedules.",
   "permissions": [
     "storage"
   ],
